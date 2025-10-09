@@ -57,6 +57,10 @@
     </script>
 
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+        }
         :root {
             /* Theme colors mapped to CSS variables for semantic use */
             --color-primary-light: #f3f4f6; /* gray-100 */
@@ -119,10 +123,12 @@
 
         .square-left {
             left: -8vw;
+            max-width: 100dvw;
         }
 
         .square-right {
             right: -8vw;
+            max-width: 100dvw;
         }
 
         .back-layer .square {
@@ -141,10 +147,12 @@
         @media (max-width: 768px) {
             .square-left {
                 left: -15vw;
+                max-width: 100dvw;
             }
 
             .square-right {
                 right: -15vw;
+                max-width: 100dvw;
             }
 
             .back-layer .square {
@@ -212,8 +220,15 @@
         /* Full-width accent transparent section */
         .full-width-accent {
             background-color: var(--color-accent);
+            /* Use dynamic viewport width to avoid iOS/Android UI bars causing overflow */
+            width: 100dvw;
+            max-width: 100%;
+            /* Fallback for older browsers */
             width: 100vw;
+            /* Fallback offset matches fallback width */
             margin-left: calc(-50vw + 50%);
+            /* Dynamic viewport offset for modern browsers */
+            margin-left: calc(-50dvw + 50%);
             position: relative;
         }
 
