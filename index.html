@@ -60,6 +60,27 @@
         html,
         body {
             overflow-x: hidden;
+            overscroll-behavior-x: none;
+            touch-action: pan-y;
+            scrollbar-gutter: stable both-edges;
+        }
+
+        /* Prefer clipping when supported to eliminate horizontal scroll roots on mobile */
+        @supports (overflow-x: clip) {
+            html,
+            body {
+                overflow-x: clip;
+            }
+        }
+
+        /* Ensure app content never causes horizontal scrolling on mobile */
+        #mainContent {
+            overflow-x: hidden;
+        }
+        @supports (overflow-x: clip) {
+            #mainContent {
+                overflow-x: clip;
+            }
         }
         :root {
             /* Theme colors mapped to CSS variables for semantic use */
@@ -232,11 +253,12 @@
             position: relative;
             /* Robust viewport breakout (prevents overflow and centers content) */
             left: 50%;
-            right: 50%;
             /* Fallbacks for older browsers */
             width: 100vw;
             margin-left: -50vw;
             margin-right: -50vw;
+            /* Prevent tiny horizontal scroll due to subpixel rounding on mobile */
+            overflow-x: hidden;
         }
 
         /* Prefer dynamic viewport units when supported to avoid double scrollbars */
@@ -245,6 +267,22 @@
                 width: 100dvw;
                 margin-left: -50dvw;
                 margin-right: -50dvw;
+            }
+        }
+
+        /* Prefer clipping when supported to avoid creating a new formatting context */
+        @supports (overflow-x: clip) {
+            .full-width-accent {
+                overflow-x: clip;
+            }
+        }
+
+        /* Use stable viewport units where supported (Safari/iOS) */
+        @supports (width: 100svw) {
+            .full-width-accent {
+                width: 100svw;
+                margin-left: -50svw;
+                margin-right: -50svw;
             }
         }
 
@@ -279,6 +317,7 @@
             width: 100%;
             height: 100px;
             overflow: hidden;
+            bottom: 0;
         }
 
         .full-width-accent::after::after {
@@ -392,6 +431,12 @@
             max-height: none;
             overflow-y: visible;
             padding-right: 0;
+        }
+
+        /* Prevent long messages from causing horizontal scroll on mobile */
+        .comments-container p {
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
         .comments-container::-webkit-scrollbar {
