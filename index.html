@@ -376,9 +376,9 @@
 
         /* Comments scroll container */
         .comments-container {
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 10px;
+            max-height: none;
+            overflow-y: visible;
+            padding-right: 0;
         }
 
         .comments-container::-webkit-scrollbar {
@@ -487,7 +487,7 @@
             }
 
             .comments-container {
-                max-height: 400px;
+                max-height: none;
             }
 
             .box-inner {
@@ -797,8 +797,8 @@
                     <h3 class="text-xl font-semibold mb-4 font-playfair text-center">
                         Ucapan & Doa Restu (<span x-text="comments.length">0</span>)
                     </h3>
-                    <!-- Scroll container for comments -->
-                    <div class="comments-container" :class="{'overflow-y-auto': comments.length > 5}">
+                    <!-- Scroll container for comments (no nested scrolling) -->
+                    <div class="comments-container">
                         <div class="space-y-4">
                             <template x-for="comment in comments.slice().reverse()" :key="comment.time">
                                 <div class="bg-white/70 backdrop-blur-[10px] rounded-xl shadow p-4">
