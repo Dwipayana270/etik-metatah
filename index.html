@@ -57,13 +57,38 @@
     </script>
 
     <style>
+        :root {
+            /* Theme colors mapped to CSS variables for semantic use */
+            --color-primary-light: #f8e3e0;
+            --color-primary: #e8c4c0;
+            --color-secondary: #8b6f65;
+            --color-secondary-light: #a08070;
+            --color-secondary-dark: #6b564e;
+            --color-text-primary: #5a4a42;
+            --color-accent: rgba(255, 165, 0, 0.3);
+
+            /* RGB components for alpha compositions */
+            --color-primary-light-rgb: 248, 227, 224;
+            --color-primary-rgb: 232, 196, 192;
+            --color-secondary-rgb: 139, 111, 101;
+            --color-secondary-light-rgb: 160, 128, 112;
+            --color-secondary-dark-rgb: 107, 86, 78;
+            --color-text-primary-rgb: 90, 74, 66;
+            --color-accent-rgb: 255, 165, 0;
+
+            /* Neutrals */
+            --color-white: #ffffff;
+            --color-white-rgb: 255, 255, 255;
+            --color-black-rgb: 0, 0, 0;
+        }
+
         body {
-            background-color: #ffffff;
+            background-color: var(--color-white);
             background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
             background-size: auto;
             background-attachment: fixed;
             background-repeat: repeat;
-            color: #5a4a42;
+            color: var(--color-text-primary);
         }
 
         .parallax-container {
@@ -135,11 +160,11 @@
 
         /* Additional styles for content from code A */
         .modal-overlay {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(var(--color-black-rgb), 0.8);
         }
 
         .countdown-item {
-            background: linear-gradient(135deg, #e8c4c0, #f8e3e0);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
             border-radius: 10px;
             padding: 10px;
             min-width: 72px;
@@ -150,19 +175,19 @@
             flex-direction: column;
             align-items: center;
             gap: 4px;
-            color: #5a4a42;
+            color: var(--color-text-primary);
             transition: color 0.2s ease;
         }
 
         .nav-btn:hover {
-            color: #8b6f65;
+            color: var(--color-secondary);
         }
 
         a:focus,
         button:focus,
         input:focus,
         textarea:focus {
-            outline: 3px solid rgba(224, 170, 62, 0.25);
+            outline: 3px solid rgba(var(--color-accent-rgb), 0.25);
             outline-offset: 2px;
         }
 
@@ -184,9 +209,9 @@
             overflow: hidden;
         }
 
-        /* Full-width orange transparent section */
-        .full-width-orange {
-            background-color: rgba(255, 165, 0, 0.3);
+        /* Full-width accent transparent section */
+        .full-width-accent {
+            background-color: var(--color-accent);
             width: 100vw;
             margin-left: calc(-50vw + 50%);
             position: relative;
@@ -211,12 +236,12 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 165, 0, 0.3);
+            background: var(--color-accent);
             height: 66%;
         }
 
-        /* Add curve at the bottom of the orange section */
-        .full-width-orange::after {
+        /* Add curve at the bottom of the accent section */
+        .full-width-accent::after {
             content: "";
             position: absolute;
             left: 0;
@@ -225,14 +250,14 @@
             overflow: hidden;
         }
 
-        .full-width-orange::after::after {
+        .full-width-accent::after::after {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 200%;
-            background: #f8e3e0;
+            background: var(--color-primary-light);
             border-radius: 0 0 50% 50%;
         }
 
@@ -284,12 +309,12 @@
 
         .fade-left {
             left: 0;
-            background: linear-gradient(to right, rgba(255, 237, 213, 0.8), transparent);
+            background: linear-gradient(to right, rgba(var(--color-primary-light-rgb), 0.8), transparent);
         }
 
         .fade-right {
             right: 0;
-            background: linear-gradient(to left, rgba(255, 237, 213, 0.8), transparent);
+            background: linear-gradient(to left, rgba(var(--color-primary-light-rgb), 0.8), transparent);
         }
 
         /* Lightbox - Fixed styles */
@@ -305,8 +330,8 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: #ffffff;
+            background: rgba(var(--color-black-rgb), 0.5);
+            color: var(--color-white);
             border: none;
             width: 50px;
             height: 50px;
@@ -320,7 +345,7 @@
         }
 
         .lightbox-nav-btn:hover {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(var(--color-black-rgb), 0.8);
         }
 
         .lightbox-prev {
@@ -343,27 +368,27 @@
         }
 
         .comments-container::-webkit-scrollbar-track {
-            background: rgba(232, 196, 192, 0.2);
+            background: rgba(var(--color-primary-rgb), 0.2);
             border-radius: 10px;
         }
 
         .comments-container::-webkit-scrollbar-thumb {
-            background: rgba(139, 111, 101, 0.5);
+            background: rgba(var(--color-secondary-rgb), 0.5);
             border-radius: 10px;
         }
 
         .comments-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(139, 111, 101, 0.7);
+            background: rgba(var(--color-secondary-rgb), 0.7);
         }
 
         /* Box styling for Info Acara section */
         .box {
             position: relative;
-            background-color: rgba(248, 227, 224, 0.7);
+            background-color: rgba(var(--color-primary-light-rgb), 0.7);
             width: 100%;
             max-width: 600px;
             padding: 5px;
-            border: 2px solid #8b6f65;
+            border: 2px solid var(--color-secondary);
             margin: 0 auto;
         }
 
@@ -374,8 +399,8 @@
             width: 14px;
             height: 14px;
             font-size: 14px;
-            color: #8b6f65;
-            border: 2px solid #8b6f65;
+            color: var(--color-secondary);
+            border: 2px solid var(--color-secondary);
             line-height: 12px;
             top: 5px;
             text-align: center;
@@ -391,7 +416,7 @@
 
         .box-inner {
             position: relative;
-            border: 2px solid #8b6f65;
+            border: 2px solid var(--color-secondary);
             padding: 40px;
         }
 
@@ -402,8 +427,8 @@
             width: 14px;
             height: 14px;
             font-size: 14px;
-            color: #8b6f65;
-            border: 2px solid #8b6f65;
+            color: var(--color-secondary);
+            border: 2px solid var(--color-secondary);
             line-height: 12px;
             bottom: -2px;
             text-align: center;
@@ -530,7 +555,7 @@
             </div>
         </header>
 
-        <section id="mempelai" class="pb-16 relative full-width-orange">
+        <section id="mempelai" class="pb-16 relative full-width-accent">
             <div class="curved-divider"></div>
             <div class="container mx-auto w-4/5">
                 <div class="text-center mb-8" data-aos="fade-up">
@@ -789,7 +814,7 @@
         </section>
 
         <!-- GALERI -->
-        <section id="galeri" class="full-width-orange pb-12">
+        <section id="galeri" class="full-width-accent pb-12">
             <div class="curved-divider"></div>
             <div class="">
                 <div class="text-center mb-6" data-aos="fade-up">
