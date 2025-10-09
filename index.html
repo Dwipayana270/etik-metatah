@@ -175,7 +175,8 @@
             background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
             border-radius: 10px;
             padding: 10px;
-            min-width: 72px;
+            flex: 1 1 0%;
+            min-width: 0;
         }
 
         .nav-btn {
@@ -201,8 +202,9 @@
 
         @media (max-width: 640px) {
             .countdown-item {
-                min-width: 64px;
                 padding: 8px;
+                flex: 1 1 0%;
+                min-width: 0;
             }
         }
 
@@ -281,7 +283,7 @@
         .gallery-track {
             display: flex;
             gap: 1rem;
-            width: fit-content;
+            width: max(100%, fit-content);
             will-change: transform;
         }
 
@@ -534,11 +536,11 @@
     <div id="mainContent" :class="{'blur-content': showModal}"
         class="relative z-[10] px-5 py-[120px] max-w-[700px] mx-auto text-center">
         <!-- HERO -->
-        <header class="min-h-screen flex ">
+        <header class="min-h-screen min-h-[100dvh] flex items-center justify-center">
             <div class="container mx-auto px-6 text-center">
                 <div class="w-full overflow-hidden mb-8">
                     <img src="https://media-public.canva.com/FnqPo/MAEqEXFnqPo/1/tl.png" alt=""
-                        class="block w-full h-full object-cover " aria-hidden="true" />
+                        class="block w-full h-24 sm:h-40 object-cover " aria-hidden="true" />
                 </div>
 
                 <div data-aos="zoom-in-up" data-aos-duration="900">
@@ -553,12 +555,12 @@
                         perkenankan kami mengundang Bapak/Ibu/Saudara/i hadir memberikan
                         doa restu.
                     </p>
-                    <div class="mt-6 flex justify-center gap-3">
+                    <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
                         <a href="#info"
-                            class="px-6 py-3 bg-gradient-to-r from-secondary to-secondary-light text-white rounded-full font-semibold shadow hover:scale-105 transform">Info
+                            class="w-full sm:w-auto px-6 py-3 text-sm sm:text-base bg-gradient-to-r from-secondary to-secondary-light text-white rounded-full font-semibold shadow hover:scale-105 transform">Info
                             Acara</a>
                         <a href="#ucapan"
-                            class="px-6 py-3 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50">Kirim
+                            class="w-full sm:w-auto px-6 py-3 text-sm sm:text-base border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50">Kirim
                             Ucapan</a>
                     </div>
                 </div>
@@ -566,7 +568,7 @@
                 <!-- Bottom section (divider flipped) -->
                 <div class="w-full overflow-hidden mt-8">
                     <img src="https://media-public.canva.com/FnqPo/MAEqEXFnqPo/1/tl.png" alt=""
-                        class="block w-full h-full object-cover rotate-180" aria-hidden="true" />
+                        class="block w-full h-24 sm:h-40 object-cover rotate-180" aria-hidden="true" />
                 </div>
             </div>
         </header>
@@ -675,7 +677,7 @@
 
                 <div class="box" data-aos="zoom-in">
                     <div class="box-inner">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-8">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 text-center mb-8">
                             <div class="p-4">
                                 <div class="text-sm text-gray-500">Hari</div>
                                 <div class="text-xl font-bold mt-2">Kamis</div>
@@ -687,7 +689,7 @@
                                 </div>
                                 <div class="text-sm mt-1">Juli 2025</div>
                             </div>
-                            <div class="p-4">
+                            <div class="p-4 col-span-2 md:col-span-1">
                                 <div class="text-sm text-gray-500">Waktu</div>
                                 <div class="text-xl font-bold mt-2">10:00 - 16:00 WITA</div>
                             </div>
@@ -698,22 +700,22 @@
                             <h3 class="text-2xl font-semibold mb-4 font-playfair">
                                 Hitung Mundur Acara
                             </h3>
-                            <div class="flex justify-center gap-4 flex-wrap">
+                            <div class="flex justify-center gap-2 sm:gap-4 flex-nowrap">
                                 <div class="countdown-item text-white text-center">
-                                    <div class="text-3xl font-bold" x-text="countdown.days">00</div>
-                                    <div class="text-sm">Hari</div>
+                                    <div class="text-2xl sm:text-3xl font-bold" x-text="countdown.days">00</div>
+                                    <div class="text-xs sm:text-sm">Hari</div>
                                 </div>
                                 <div class="countdown-item text-white text-center">
-                                    <div class="text-3xl font-bold" x-text="countdown.hours">00</div>
-                                    <div class="text-sm">Jam</div>
+                                    <div class="text-2xl sm:text-3xl font-bold" x-text="countdown.hours">00</div>
+                                    <div class="text-xs sm:text-sm">Jam</div>
                                 </div>
                                 <div class="countdown-item text-white text-center">
-                                    <div class="text-3xl font-bold" x-text="countdown.minutes">00</div>
-                                    <div class="text-sm">Menit</div>
+                                    <div class="text-2xl sm:text-3xl font-bold" x-text="countdown.minutes">00</div>
+                                    <div class="text-xs sm:text-sm">Menit</div>
                                 </div>
                                 <div class="countdown-item text-white text-center">
-                                    <div class="text-3xl font-bold" x-text="countdown.seconds">00</div>
-                                    <div class="text-sm">Detik</div>
+                                    <div class="text-2xl sm:text-3xl font-bold" x-text="countdown.seconds">00</div>
+                                    <div class="text-xs sm:text-sm">Detik</div>
                                 </div>
                             </div>
                         </div>
@@ -847,7 +849,7 @@
 
                     <!-- Row 1 -->
                     <div class="relative overflow-hidden">
-                        <div class="gallery-track scroll-left">
+                        <div class="gallery-track scroll-left w-full">
                             <!-- First set of images -->
                             <template x-for="image in galleryImages.slice(0, 6)" :key="image">
                                 <img :src="image"
@@ -865,7 +867,7 @@
 
                     <!-- Row 2 (reverse) -->
                     <div class="relative overflow-hidden mt-6">
-                        <div class="gallery-track scroll-right">
+                        <div class="gallery-track scroll-right w-full">
                             <template x-for="image in galleryImages.slice(6, 12)" :key="image">
                                 <img :src="image"
                                     class="h-48 w-auto object-cover rounded-xl cursor-pointer hover:opacity-80 flex-shrink-0"
