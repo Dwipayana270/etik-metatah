@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" x-data="invitationApp()">
+<html lang="id" x-data="invitationApp()" :class="{'no-scroll': showModal || showLightbox}">
 
 <head>
     <meta charset="UTF-8" />
@@ -95,12 +95,19 @@
             color: var(--color-text-primary);
         }
 
+        /* Avoid iOS/mobile creating extra scroll layers with fixed backgrounds */
+        @media (max-width: 1024px) {
+            body {
+                background-attachment: scroll;
+            }
+        }
+
         .parallax-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100dvh;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
@@ -226,13 +233,19 @@
             /* Robust viewport breakout (prevents overflow and centers content) */
             left: 50%;
             right: 50%;
-            width: 100dvw;
-            margin-left: -50dvw;
-            margin-right: -50dvw;
             /* Fallbacks for older browsers */
             width: 100vw;
             margin-left: -50vw;
             margin-right: -50vw;
+        }
+
+        /* Prefer dynamic viewport units when supported to avoid double scrollbars */
+        @supports (width: 100dvw) {
+            .full-width-accent {
+                width: 100dvw;
+                margin-left: -50dvw;
+                margin-right: -50dvw;
+            }
         }
 
         /* Fixed curved divider */
@@ -536,7 +549,7 @@
     <div id="mainContent" :class="{'blur-content': showModal}"
         class="relative z-[10] px-5 pb-12 max-w-[700px] mx-auto text-center">
         <!-- HERO -->
-        <header class="min-h-screen min-h-[100dvh] flex items-center justify-center">
+        <header class="min-h-screen min-h-[100dvh] flex items-center justify-center" style="min-height: 100dvh;">
             <div class="container mx-auto px-6 text-center">
                 <div class="w-full overflow-hidden mb-8">
                     <img src="https://media-public.canva.com/FnqPo/MAEqEXFnqPo/1/tl.png" alt=""
