@@ -230,17 +230,21 @@
         .full-width-accent {
             background-color: var(--color-accent);
             position: relative;
-            /* Break out to viewport width without causing horizontal overflow */
-            margin-left: calc(50% - 50vw);
-            margin-right: calc(50% - 50vw);
-            overflow-x: hidden; /* avoid 1px rounding scroll on mobile */
+            /* Robust viewport breakout (prevents overflow and centers content) */
+            left: 50%;
+            right: 50%;
+            /* Fallbacks for older browsers */
+            width: 100vw;
+            margin-left: -50vw;
+            margin-right: -50vw;
         }
 
         /* Prefer dynamic viewport units when supported to avoid double scrollbars */
         @supports (width: 100dvw) {
             .full-width-accent {
-                margin-left: calc(50% - 50dvw);
-                margin-right: calc(50% - 50dvw);
+                width: 100dvw;
+                margin-left: -50dvw;
+                margin-right: -50dvw;
             }
         }
 
@@ -856,7 +860,7 @@
                 </div>
 
                 <!-- Smooth Scrolling Gallery -->
-                <div class="relative overflow-hidden py-10 sm:py-16 mx-[-1.25rem] sm:mx-[-2rem]" style="overflow-x: clip;">
+                <div class="relative overflow-hidden py-10 sm:py-16 mx-[-1.25rem] sm:mx-[-2rem]">
                     <div class="fade-left"></div>
                     <div class="fade-right"></div>
 
