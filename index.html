@@ -220,16 +220,17 @@
         /* Full-width accent transparent section */
         .full-width-accent {
             background-color: var(--color-accent);
-            /* Use dynamic viewport width to avoid iOS/Android UI bars causing overflow */
-            width: 100dvw;
-            max-width: 100%;
-            /* Fallback for older browsers */
-            width: 100vw;
-            /* Fallback offset matches fallback width */
-            margin-left: calc(-50vw + 50%);
-            /* Dynamic viewport offset for modern browsers */
-            margin-left: calc(-50dvw + 50%);
             position: relative;
+            /* Robust viewport breakout (prevents overflow and centers content) */
+            left: 50%;
+            right: 50%;
+            width: 100dvw;
+            margin-left: -50dvw;
+            margin-right: -50dvw;
+            /* Fallbacks for older browsers */
+            width: 100vw;
+            margin-left: -50vw;
+            margin-right: -50vw;
         }
 
         /* Fixed curved divider */
@@ -570,10 +571,10 @@
             </div>
         </header>
 
-        <section id="mempelai" class="pb-16 relative full-width-accent">
+        <section id="mempelai" class="relative full-width-accent pb-12 sm:pb-16">
             <div class="curved-divider"></div>
-            <div class="container mx-auto w-4/5">
-                <div class="text-center mb-8" data-aos="fade-up">
+            <div class="w-full px-5 sm:px-8">
+                <div class="text-center mb-6 sm:mb-8" data-aos="fade-up">
                     <h2 class="text-6xl font-mrsdelafield text-secondary-dark">
                         Keluarga Yang Berbahagia
                     </h2>
@@ -583,7 +584,7 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                     <!-- Card 1 -->
                     <div data-aos="fade-right"
                         class="bg-white/70 backdrop-blur-[10px] rounded-xl shadow-lg overflow-hidden flex flex-col">
@@ -829,10 +830,10 @@
         </section>
 
         <!-- GALERI -->
-        <section id="galeri" class="full-width-accent pb-12">
+        <section id="galeri" class="full-width-accent pb-10 sm:pb-14">
             <div class="curved-divider"></div>
-            <div class="">
-                <div class="text-center mb-6" data-aos="fade-up">
+            <div class="w-full px-5 sm:px-8">
+                <div class="text-center mb-5 sm:mb-6" data-aos="fade-up">
                     <h2 class="text-6xl font-mrsdelafield text-secondary-dark">
                         Galeri
                     </h2>
@@ -840,7 +841,7 @@
                 </div>
 
                 <!-- Smooth Scrolling Gallery -->
-                <div class="relative overflow-hidden py-16">
+                <div class="relative overflow-hidden py-10 sm:py-16">
                     <div class="fade-left"></div>
                     <div class="fade-right"></div>
 
