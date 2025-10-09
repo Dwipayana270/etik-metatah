@@ -540,7 +540,9 @@
             <div class="container mx-auto px-6 text-center">
                 <div class="w-full overflow-hidden mb-8">
                     <img src="https://media-public.canva.com/FnqPo/MAEqEXFnqPo/1/tl.png" alt=""
-                        class="block w-full h-24 sm:h-40 object-cover " aria-hidden="true" />
+
+                        class="block w-full h-full object-cover filter grayscale" aria-hidden="true" />
+
                 </div>
 
                 <div data-aos="zoom-in-up" data-aos-duration="900">
@@ -568,7 +570,9 @@
                 <!-- Bottom section (divider flipped) -->
                 <div class="w-full overflow-hidden mt-8">
                     <img src="https://media-public.canva.com/FnqPo/MAEqEXFnqPo/1/tl.png" alt=""
-                        class="block w-full h-24 sm:h-40 object-cover rotate-180" aria-hidden="true" />
+
+                        class="block w-full h-full object-cover rotate-180 filter grayscale" aria-hidden="true" />
+
                 </div>
             </div>
         </header>
@@ -1017,11 +1021,13 @@
                     if (type === "back") {
                         square.style.backgroundImage = `url('https://media-public.canva.com/3gWYg/MAFB-W3gWYg/1/tl.png')`;
                         square.style.opacity = "0.4";
+                        square.style.filter = "grayscale(100%)";
                         const rotation = side === "left" ? -8 : 8;
                         square.style.transform = `rotate(${rotation}deg)`;
                     } else {
                         square.style.backgroundImage = `url('https://media-public.canva.com/EalrA/MAEchNEalrA/1/tl.png')`;
                         square.style.opacity = "0.9";
+                        square.style.filter = "grayscale(100%)";
                         square.style.transform = "none";
                     }
                     square.style.top = `${topPos}%`;
