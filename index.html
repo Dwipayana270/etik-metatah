@@ -248,48 +248,46 @@
             }
         }
 
-        /* Fixed curved divider */
-        .curved-divider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            overflow: hidden;
-            transform: translateY(-100%);
-        }
+        /* Fixed curved divider (disabled, replaced by pseudo-elements below) */
+        .curved-divider { display: none; }
 
-        .curved-divider::after {
+        /* Consistent curves for accent sections (top and bottom) */
+        :root { --curve-height: 100px; }
+
+        /* Allow curves to overflow without causing scroll */
+        .full-width-accent { overflow: visible; }
+
+        /* Top curve: accent color protruding into previous section */
+        .full-width-accent::before {
             content: "";
-            border-top-left-radius: 50% 100%;
-            border-top-right-radius: 50% 100%;
             position: absolute;
-            bottom: 0;
+            top: calc(-1 * var(--curve-height));
             left: 0;
             width: 100%;
+            height: var(--curve-height);
             background: var(--color-accent);
-            height: 66%;
+            border-bottom-left-radius: 50% 100%;
+            border-bottom-right-radius: 50% 100%;
+            pointer-events: none;
         }
 
-        /* Add curve at the bottom of the accent section */
+        /* Bottom curve: transitions to the base section tone */
         .full-width-accent::after {
             content: "";
             position: absolute;
+            bottom: calc(-1 * var(--curve-height));
             left: 0;
             width: 100%;
-            height: 100px;
-            overflow: hidden;
+            height: var(--curve-height);
+            background: var(--color-primary-light);
+            border-top-left-radius: 50% 100%;
+            border-top-right-radius: 50% 100%;
+            pointer-events: none;
         }
 
-        .full-width-accent::after::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 200%;
-            background: var(--color-primary-light);
-            border-radius: 0 0 50% 50%;
+        /* Mobile-safe: keep same curves; tweak height if desired */
+        @media (max-width: 768px) {
+            :root { --curve-height: 90px; }
         }
 
         /* Gallery Styles - Fixed for perfect infinite loop */
