@@ -292,6 +292,34 @@
             border-radius: 0 0 50% 50%;
         }
 
+        /* Mobile-safe curves: avoid transforms that can create extra scroll layers */
+        @media (max-width: 768px) {
+            /* Hide the transformed divider to prevent viewport overflow on mobile */
+            .curved-divider {
+                display: none;
+            }
+
+            /* Draw top curve INSIDE the section so it doesn't overflow the viewport */
+            .full-width-accent::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100px;
+                background: var(--color-white);
+                border-bottom-left-radius: 50% 100%;
+                border-bottom-right-radius: 50% 100%;
+                pointer-events: none;
+            }
+
+            /* Ensure the section doesn't create a new scroll context */
+            .full-width-accent {
+                overflow: visible;
+                contain: paint;
+            }
+        }
+
         /* Gallery Styles - Fixed for perfect infinite loop */
         .gallery-track {
             display: flex;
