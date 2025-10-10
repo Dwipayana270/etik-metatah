@@ -1292,7 +1292,8 @@
             if (type === "back") {
               square.style.backgroundImage = `url('https://media-public.canva.com/3gWYg/MAFB-W3gWYg/1/tl.png')`;
               square.style.opacity = "0.4";
-              square.style.filter = "grayscale(100%)";
+              square.style.filter =
+                "brightness(0) saturate(100%) invert(95%) sepia(64%) saturate(288%) hue-rotate(320deg) brightness(85%) contrast(85%)";
               const rotation = side === "left" ? -8 : 8;
               square.style.transform = `rotate(${rotation}deg)`;
             } else {
