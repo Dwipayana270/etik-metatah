@@ -222,7 +222,7 @@
 
       /* Additional styles for content from code A */
       .modal-overlay {
-        background: rgba(var(--color-black-rgb), 0.8);
+        background: transparent;
       }
 
       .countdown-item {
@@ -593,11 +593,26 @@
       x-transition:leave="transition ease-in duration-200"
       x-transition:leave-start="opacity-100"
       x-transition:leave-end="opacity-0"
-      class="fixed inset-0 z-50 flex items-center justify-center modal-overlay"
+      class="fixed inset-0 z-50 flex items-center justify-center modal-overlay relative overflow-hidden"
       style="display: none"
     >
+      <!-- Modal Background Slideshow -->
+      <div class="absolute inset-0 z-0">
+        <template x-for="image in galleryImages" :key="'modal-'+image">
+          <img
+            :src="image"
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+            :class="galleryImages.indexOf(image) === modalBgIndex ? 'opacity-100' : 'opacity-0'"
+            loading="lazy"
+            decoding="async"
+          />
+        </template>
+        <!-- Scrim for readability over images -->
+        <div class="absolute inset-0 bg-black/60"></div>
+      </div>
       <div
-        class="bg-white/90 backdrop-blur-[10px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center"
+        class="relative z-10 bg-white/90 backdrop-blur-[10px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center"
         data-aos="zoom-in"
       >
         <h2 class="text-4xl font-mrsdelafield text-secondary-dark mb-1">
@@ -1204,6 +1219,9 @@
           isPlaying: false,
           showLightbox: false,
           currentImageIndex: 0,
+          // Background slideshow state for opening modal
+          modalBgIndex: 0,
+          modalBgTimerId: null,
           supabase: null,
           supabaseReady: false,
           baseDocumentTitle: document.title,
@@ -1285,6 +1303,26 @@
 
             // Personalize content based on URL guest parameter
             this.applyGuestPersonalization();
+
+            // Start modal background slideshow if modal is visible
+            if (this.showModal) {
+              this.startModalSlideshow();
+            }
+          },
+
+          startModalSlideshow() {
+            if (this.modalBgTimerId) return;
+            this.modalBgTimerId = setInterval(() => {
+              this.modalBgIndex =
+                (this.modalBgIndex + 1) % this.galleryImages.length;
+            }, 500);
+          },
+
+          stopModalSlideshow() {
+            if (this.modalBgTimerId) {
+              clearInterval(this.modalBgTimerId);
+              this.modalBgTimerId = null;
+            }
           },
 
           initSupabase() {
@@ -1385,6 +1423,7 @@
           },
 
           openInvitation() {
+            this.stopModalSlideshow();
             this.showModal = false;
             window.scrollTo({ top: 0, behavior: "smooth" });
             this.$nextTick(() => {
