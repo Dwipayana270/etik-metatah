@@ -222,7 +222,7 @@
 
       /* Additional styles for content from code A */
       .modal-overlay {
-        background: rgba(var(--color-black-rgb), 0.8);
+        background: transparent;
       }
 
       .countdown-item {
@@ -584,6 +584,32 @@
       <div class="parallax-layer front-layer z-20" data-speed="0.2"></div>
     </div>
 
+    <!-- Modal Background Gallery (between modal and main web) -->
+    <div
+      x-show="showModal"
+      class="fixed inset-0 z-[45] pointer-events-none"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <template x-for="image in galleryImages" :key="'modalbg-'+image">
+        <img
+          :src="image"
+          alt=""
+          class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500"
+          :class="galleryImages.indexOf(image) === modalBgIndex ? 'opacity-100' : 'opacity-0'"
+          loading="lazy"
+          decoding="async"
+        />
+      </template>
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
     <!-- Modal Pembuka -->
     <div
       x-show="showModal"
@@ -597,8 +623,7 @@
       style="display: none"
     >
       <div
-        class="bg-white/90 backdrop-blur-[10px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center"
-        data-aos="zoom-in"
+        class="bg-white/40 backdrop-blur-[5px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center"
       >
         <h2 class="text-4xl font-mrsdelafield text-secondary-dark mb-1">
           Om Swastyastu
@@ -1204,6 +1229,11 @@
           isPlaying: false,
           showLightbox: false,
           currentImageIndex: 0,
+          // Background slideshow state for opening modal
+          modalBgIndex: 0,
+          modalBgTimerId: null,
+          // Countdown target and values
+          eventTime: new Date("2025-10-24T10:00:00+08:00").getTime(),
           supabase: null,
           supabaseReady: false,
           baseDocumentTitle: document.title,
@@ -1285,6 +1315,26 @@
 
             // Personalize content based on URL guest parameter
             this.applyGuestPersonalization();
+
+            // Start modal background slideshow if modal is visible
+            if (this.showModal) {
+              this.startModalSlideshow();
+            }
+          },
+
+          startModalSlideshow() {
+            if (this.modalBgTimerId) return;
+            this.modalBgTimerId = setInterval(() => {
+              this.modalBgIndex =
+                (this.modalBgIndex + 1) % this.galleryImages.length;
+            }, 500);
+          },
+
+          stopModalSlideshow() {
+            if (this.modalBgTimerId) {
+              clearInterval(this.modalBgTimerId);
+              this.modalBgTimerId = null;
+            }
           },
 
           initSupabase() {
@@ -1385,6 +1435,7 @@
           },
 
           openInvitation() {
+            this.stopModalSlideshow();
             this.showModal = false;
             window.scrollTo({ top: 0, behavior: "smooth" });
             this.$nextTick(() => {
@@ -1404,10 +1455,8 @@
           },
 
           updateCountdown() {
-            const eventTime = new Date("2025-07-17T10:00:00+08:00").getTime();
             const now = Date.now();
-            let diff = eventTime - now;
-
+            let diff = this.eventTime - now;
             if (diff < 0) diff = 0;
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
