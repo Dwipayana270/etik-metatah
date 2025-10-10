@@ -24,6 +24,10 @@
     <meta name="theme-color" content="#f3f4f6" />
     <link rel="icon" href="https://picsum.photos/32/32" />
 
+    <!-- Supabase (optional) - set these to enable cloud storage -->
+    <meta name="supabase-url" content="" />
+    <meta name="supabase-anon-key" content="" />
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -32,6 +36,9 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+
+    <!-- Supabase JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- AOS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -952,6 +959,7 @@
                 <option value="">Konfirmasi Kehadiran</option>
                 <option value="Hadir">Hadir</option>
                 <option value="Tidak Hadir">Tidak Hadir</option>
+                <option value="Belum Tahu">Belum Tahu</option>
               </select>
 
               <div class="flex justify-between items-center">
@@ -996,9 +1004,13 @@
                       <div class="flex items-center justify-between">
                         <div class="text-sm">
                           <span
-                            :class="comment.attendance === 'Hadir' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+                            :class="comment.attendance === 'Hadir' 
+                              ? 'bg-green-100 text-green-800' 
+                              : (comment.attendance === 'Tidak Hadir' 
+                                ? 'bg-red-100 text-red-800' 
+                                : 'bg-orange-100 text-orange-800')"
                             class="px-2 py-1 rounded"
-                            x-text="comment.attendance || '—'"
+                            x-text="comment.attendance || 'Belum Tahu'"
                           ></span>
                         </div>
                         <div class="text-xs text-gray-500">
@@ -1172,6 +1184,8 @@
           isPlaying: false,
           showLightbox: false,
           currentImageIndex: 0,
+          supabase: null,
+          supabaseReady: false,
           countdown: {
             days: "00",
             hours: "00",
@@ -1236,6 +1250,7 @@
             });
 
             // Load comments from localStorage
+            this.initSupabase();
             this.loadComments();
 
             // Start countdown
@@ -1244,6 +1259,26 @@
 
             // Handle smooth scrolling
             this.initSmoothScroll();
+          },
+
+          initSupabase() {
+            try {
+              const url = document
+                .querySelector('meta[name="supabase-url"]')
+                ?.getAttribute('content')
+                ?.trim();
+              const anonKey = document
+                .querySelector('meta[name="supabase-anon-key"]')
+                ?.getAttribute('content')
+                ?.trim();
+              if (url && anonKey && window.supabase && window.supabase.createClient) {
+                this.supabase = window.supabase.createClient(url, anonKey);
+                this.supabaseReady = true;
+              }
+            } catch (e) {
+              this.supabase = null;
+              this.supabaseReady = false;
+            }
           },
 
           initParallax() {
@@ -1368,7 +1403,7 @@
             const newComment = {
               name: this.commentForm.name,
               message: this.commentForm.message,
-              attendance: this.commentForm.attendance,
+              attendance: this.commentForm.attendance || 'Belum Tahu',
               time: new Date().toISOString(),
             };
 
@@ -1385,20 +1420,51 @@
             alert("Terima kasih atas ucapan dan konfirmasi Anda!");
           },
 
-          loadComments() {
+          async loadComments() {
+            // Try Supabase first if configured
+            if (this.supabase) {
+              try {
+                const { data, error } = await this.supabase
+                  .from('comments')
+                  .select('*')
+                  .order('time', { ascending: true });
+                if (!error && Array.isArray(data)) {
+                  this.comments = data;
+                  // keep a local cache for offline
+                  try {
+                    localStorage.setItem('metatah_comments_v1', JSON.stringify(this.comments));
+                  } catch (_) {}
+                  return;
+                }
+              } catch (_) {
+                // fall back to localStorage
+              }
+            }
+            // Fallback: load from localStorage
             try {
-              this.comments =
-                JSON.parse(localStorage.getItem("metatah_comments_v1")) || [];
-            } catch (e) {
+              this.comments = JSON.parse(localStorage.getItem('metatah_comments_v1')) || [];
+            } catch (_) {
               this.comments = [];
             }
           },
 
-          saveComments() {
-            localStorage.setItem(
-              "metatah_comments_v1",
-              JSON.stringify(this.comments)
-            );
+          async saveComments() {
+            // always keep offline copy
+            try {
+              localStorage.setItem('metatah_comments_v1', JSON.stringify(this.comments));
+            } catch (_) {}
+
+            // if supabase configured, insert the latest comment
+            if (this.supabase) {
+              const latest = this.comments[this.comments.length - 1];
+              if (latest) {
+                try {
+                  await this.supabase.from('comments').insert([latest]);
+                } catch (_) {
+                  // ignore errors; offline-first
+                }
+              }
+            }
           },
 
           openLightbox(index) {
