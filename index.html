@@ -603,7 +603,9 @@
         <h2 class="text-4xl font-mrsdelafield text-secondary-dark mb-1">
           Om Swastyastu
         </h2>
-        <p class="text-gray-600 mb-4">Yth. Bapak/Ibu/Saudara/i</p>
+        <p class="text-gray-600 mb-4" x-text="guestGreeting">
+          Yth. Bapak/Ibu/Saudara/i
+        </p>
 
         <div class="flex gap-3 justify-center">
           <button
@@ -618,10 +620,7 @@
 
     <!-- Audio (start after user interaction) -->
     <audio id="backgroundMusic" loop preload="auto" x-ref="audioPlayer">
-      <source
-        src="https://undangonlinebali.com/wp-content/uploads/2021/07/GENDING-SEKAR-GADUNG-Saih-Sadi-Gamelan-Selonding-oleh-Komunitas-Selonding-Bali-Aga-mp3cut.net_.mp3"
-        type="audio/mp3"
-      />
+      <source src="Canang Ayu.mp3" type="audio/mp3" />
     </audio>
 
     <!-- Main Content (will be blurred when modal is open) -->
@@ -651,7 +650,12 @@
             >
               Upacara Metatah
             </h1>
-            <p class="my-3 text-3xl text-gray-700">Yth. Bapak/Ibu/Saudara/i</p>
+            <p
+              class="my-3 text-xl md:text-3xl text-gray-700"
+              x-text="guestGreeting"
+            >
+              Yth. Bapak/Ibu/Saudara/i
+            </p>
             <p class="mt-2 text-sm text-gray-500 max-w-xl mx-auto">
               Atas Asung Kertha Wara Nugraha Ida Sang Hyang Widhi Wasa,
               perkenankan kami mengundang Bapak/Ibu/Saudara/i hadir memberikan
@@ -716,7 +720,7 @@
                   <h3
                     class="text-xl font-semibold mb-2 text-secondary-dark font-playfair"
                   >
-                    Dewa Ayu Dinda Pradnyadewi
+                    Luh Mas Tia Andriani
                   </h3>
                   <!-- parent info moved to shared section below -->
                 </div>
@@ -738,7 +742,7 @@
                   <h3
                     class="text-xl font-semibold mb-2 text-secondary-dark font-playfair"
                   >
-                    I Dewa Gede Satya Wedana
+                    Ni Kadek Mas Ita Andriantini
                   </h3>
                   <!-- parent info moved to shared section below -->
                 </div>
@@ -760,7 +764,7 @@
                   <h3
                     class="text-xl font-semibold mb-2 text-secondary-dark font-playfair"
                   >
-                    Ni Luh Ayu Maharani
+                    Komang Mas Eti Andriantina
                   </h3>
                   <!-- parent info moved to shared section below -->
                 </div>
@@ -782,7 +786,7 @@
                   <h3
                     class="text-xl font-semibold mb-2 text-secondary-dark font-playfair"
                   >
-                    I Gusti Ngurah Arya Pramana
+                    Ketut Mas Tyo Teja Adriana
                   </h3>
                   <!-- parent info moved to shared section below -->
                 </div>
@@ -792,20 +796,20 @@
           <!-- Shared parents info (moved from individual cards) -->
           <div class="mt-6 sm:mt-8" data-aos="fade-up">
             <div
-              class="bg-[#e0d8c3]/80 rounded-xl shadow p-4 sm:p-6 text-gray-700 text-center"
+              class="bg-[#e0d8c3]/40 backdrop-blur-sm rounded-xl shadow p-4 sm:p-6 text-gray-700 text-center"
             >
               <p class="text-sm sm:text-base font-medium">Putra Putri dari:</p>
               <div class="mt-3 space-y-3 sm:space-y-4 text-gray-600">
                 <div
                   class="flex flex-col md:flex-row justify-center items-center md:gap-8"
                 >
-                  <div class="text-lg sm:text-xl">I Dewa Nyoman Artawa</div>
+                  <div class="text-lg sm:text-xl">I Nyoman Sumanasa</div>
                   <div
                     class="text-secondary-dark text-6xl sm:text-7xl md:text-8xl leading-none font-mrsdelafield"
                   >
                     &amp;
                   </div>
-                  <div class="text-lg sm:text-xl">Sang Ayu Putu Kartini</div>
+                  <div class="text-lg sm:text-xl">Ketut Santi Purnami</div>
                 </div>
               </div>
             </div>
@@ -834,14 +838,14 @@
               >
                 <div class="p-4">
                   <div class="text-sm text-gray-500">Hari</div>
-                  <div class="text-xl font-bold mt-2">Kamis</div>
+                  <div class="text-xl font-bold mt-2">Jumat</div>
                 </div>
                 <div class="p-4">
                   <div class="text-sm text-gray-500">Tanggal</div>
                   <div class="text-4xl font-bold text-secondary-dark mt-1">
-                    17
+                    24
                   </div>
-                  <div class="text-sm mt-1">Juli 2025</div>
+                  <div class="text-sm mt-1">Oktober 2025</div>
                 </div>
                 <div class="p-4 col-span-2 md:col-span-1">
                   <div class="text-sm text-gray-500">Waktu</div>
@@ -903,17 +907,17 @@
                 </h4>
                 <div class="rounded-xl overflow-hidden shadow">
                   <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3949.0919047446264!2d114.93476507500938!3d-8.193496691838238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMTEnMzYuNiJTIDExNMKwNTYnMTQuNCJF!5e0!3m2!1sid!2sid!4v1760062651936!5m2!1sid!2sid"
                     class="w-full h-64"
                     frameborder="0"
                     loading="lazy"
-                    src="https://www.google.com/maps?q=Dsn%20Br.Sema%20Agung%2C%20Ds.%20Tusan%2C%20Banjarangkan%2C%20Klungkung&output=embed"
                     referrerpolicy="no-referrer-when-downgrade"
                     aria-label="Peta lokasi"
                   ></iframe>
                 </div>
                 <div class="text-center mt-4">
                   <a
-                    href="https://www.google.com/maps/search/?api=1&query=Dsn%20Br.Sema%20Agung%2C%20Ds.%20Tusan%2C%20Banjarangkan%2C%20Klungkung"
+                    href="https://maps.app.goo.gl/JyZneH9gKBugatr78"
                     target="_blank"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 hover:bg-gray-50"
                   >
@@ -1136,7 +1140,7 @@
 
       <!-- STICKY NAV -->
       <nav
-        class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-[10px] shadow-lg z-40"
+        class="fixed bottom-0 left-0 w-full bg-white/20 backdrop-blur-sm shadow-lg z-40"
       >
         <div class="container mx-auto px-6 py-3">
           <div class="flex justify-around">
@@ -1202,6 +1206,9 @@
           currentImageIndex: 0,
           supabase: null,
           supabaseReady: false,
+          baseDocumentTitle: document.title,
+          guestName: "",
+          guestGreeting: "Yth. Bapak/Ibu/Saudara/i",
           countdown: {
             days: "00",
             hours: "00",
@@ -1275,6 +1282,9 @@
 
             // Handle smooth scrolling
             this.initSmoothScroll();
+
+            // Personalize content based on URL guest parameter
+            this.applyGuestPersonalization();
           },
 
           initSupabase() {
@@ -1532,6 +1542,88 @@
                 }
               });
             });
+          },
+
+          normalizeGuestName(rawValue) {
+            try {
+              const decoded = decodeURIComponent(String(rawValue || ""))
+                .replace(/\+/g, " ")
+                .replace(/[\-_]+/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+              if (!decoded) return "";
+              return decoded
+                .split(" ")
+                .map((part) =>
+                  part.length > 0
+                    ? part.charAt(0).toUpperCase() + part.slice(1)
+                    : part
+                )
+                .join(" ");
+            } catch (_) {
+              return "";
+            }
+          },
+
+          parseGuestFromUrl() {
+            let rawGuest = "";
+            try {
+              const url = new URL(window.location.href);
+              rawGuest =
+                url.searchParams.get("to") ||
+                url.searchParams.get("guest") ||
+                url.searchParams.get("nama") ||
+                "";
+
+              if (!rawGuest && window.location.hash) {
+                const hash = window.location.hash.replace(/^#/, "");
+                const params = new URLSearchParams(hash);
+                rawGuest =
+                  params.get("to") ||
+                  params.get("guest") ||
+                  params.get("nama") ||
+                  "";
+              }
+
+              if (!rawGuest) {
+                const segments = window.location.pathname
+                  .split("/")
+                  .filter(Boolean);
+                // Support path like /guest/<name> or /g/<name>
+                const idx = Math.max(
+                  segments.lastIndexOf("guest"),
+                  segments.lastIndexOf("g")
+                );
+                if (idx >= 0 && segments[idx + 1]) {
+                  rawGuest = segments[idx + 1];
+                }
+              }
+            } catch (_) {
+              rawGuest = "";
+            }
+
+            return this.normalizeGuestName(rawGuest);
+          },
+
+          updateOgTitle(newTitle) {
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute("content", newTitle);
+          },
+
+          applyGuestPersonalization() {
+            const parsed = this.parseGuestFromUrl();
+            if (parsed) {
+              this.guestName = parsed;
+              this.guestGreeting = `Yth. ${parsed}`;
+              const personalizedTitle = `Undangan untuk ${parsed} — Undangan Metatah`;
+              document.title = personalizedTitle;
+              this.updateOgTitle(personalizedTitle);
+            } else {
+              this.guestName = "";
+              this.guestGreeting =
+                this.guestGreetingDefault || "Yth. Bapak/Ibu/Saudara/i";
+              document.title = this.baseDocumentTitle || document.title;
+            }
           },
         };
       }
