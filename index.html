@@ -197,13 +197,13 @@
         }
 
         .back-layer .square {
-          width: clamp(160px, 42vw, 320px);
-          height: clamp(160px, 42vw, 320px);
+          width: clamp(180px, 52vw, 360px);
+          height: clamp(180px, 52vw, 360px);
         }
 
         .front-layer .square {
-          width: clamp(110px, 34vw, 240px);
-          height: clamp(110px, 34vw, 240px);
+          width: clamp(130px, 42vw, 280px);
+          height: clamp(130px, 42vw, 280px);
         }
       }
 
@@ -436,6 +436,13 @@
         padding-right: 0;
       }
 
+      /* Make comments scrollable when content exceeds threshold */
+      .comments-container.scrollable {
+        max-height: 420px;
+        overflow-y: auto;
+        padding-right: 0.5rem; /* preserve content width when scrollbar shows */
+      }
+
       .comments-container::-webkit-scrollbar {
         width: 6px;
       }
@@ -543,6 +550,9 @@
 
         .comments-container {
           max-height: none;
+        }
+        .comments-container.scrollable {
+          max-height: 360px;
         }
 
         .box-inner {
@@ -695,10 +705,7 @@
                   >
                     Dewa Ayu Dinda Pradnyadewi
                   </h3>
-                  <p class="text-sm text-gray-500">
-                    <strong>Putri dari:</strong><br />I Dewa Nyoman Artawa &amp;
-                    Sang Ayu Putu Kartini
-                  </p>
+                  <!-- parent info moved to shared section below -->
                 </div>
               </div>
             </div>
@@ -720,10 +727,7 @@
                   >
                     I Dewa Gede Satya Wedana
                   </h3>
-                  <p class="text-sm text-gray-500">
-                    <strong>Putra dari:</strong><br />I Dewa Ketut Swabawa &amp;
-                    I Dewa Ayu Sinthya Dewi
-                  </p>
+                  <!-- parent info moved to shared section below -->
                 </div>
               </div>
             </div>
@@ -745,10 +749,7 @@
                   >
                     Ni Luh Ayu Maharani
                   </h3>
-                  <p class="text-sm text-gray-500">
-                    <strong>Putri dari:</strong><br />I Made Sudarma &amp; Ni
-                    Ketut Rahayu
-                  </p>
+                  <!-- parent info moved to shared section below -->
                 </div>
               </div>
             </div>
@@ -770,11 +771,22 @@
                   >
                     I Gusti Ngurah Arya Pramana
                   </h3>
-                  <p class="text-sm text-gray-500">
-                    <strong>Putra dari:</strong><br />I Gusti Made Yasa &amp; I
-                    Gusti Ayu Mirah Dewi
-                  </p>
+                  <!-- parent info moved to shared section below -->
                 </div>
+              </div>
+            </div>
+          </div>
+          <!-- Shared parents info (moved from individual cards) -->
+          <div class="mt-6 sm:mt-8" data-aos="fade-up">
+            <div class="bg-white/60 backdrop-blur-[10px] rounded-xl shadow p-4 sm:p-6 text-gray-700">
+              <p class="text-sm sm:text-base font-medium">
+                <strong>Putra Putri dari:</strong>
+              </p>
+              <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-600">
+                <div>I Dewa Nyoman Artawa &amp; Sang Ayu Putu Kartini</div>
+                <div>I Dewa Ketut Swabawa &amp; I Dewa Ayu Sinthya Dewi</div>
+                <div>I Made Sudarma &amp; Ni Ketut Rahayu</div>
+                <div>I Gusti Made Yasa &amp; I Gusti Ayu Mirah Dewi</div>
               </div>
             </div>
           </div>
@@ -961,7 +973,7 @@
               Ucapan & Doa Restu
             </h3>
             <!-- Scroll container for comments (no nested scrolling) -->
-            <div class="comments-container">
+            <div class="comments-container" :class="{'scrollable': comments.length > 4}">
               <div class="space-y-4">
                 <template
                   x-for="comment in comments.slice().reverse()"
@@ -1006,7 +1018,7 @@
             </div>
             <!-- Scroll indicator when there are more than 5 comments -->
             <div
-              x-show="comments.length > 5"
+              x-show="comments.length > 4"
               class="text-center mt-2 text-sm text-gray-500"
             >
               <i class="fas fa-arrow-down animate-bounce"></i> Scroll untuk
