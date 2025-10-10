@@ -597,19 +597,20 @@
       style="display: none"
     >
       <!-- Modal Background Slideshow -->
-      <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <template x-for="image in galleryImages" :key="'modal-'+image">
           <img
             :src="image"
             alt=""
-            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+            class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500 pointer-events-none"
             :class="galleryImages.indexOf(image) === modalBgIndex ? 'opacity-100' : 'opacity-0'"
             loading="lazy"
             decoding="async"
+            aria-hidden="true"
           />
         </template>
         <!-- Scrim for readability over images -->
-        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="absolute inset-0 bg-black/60" aria-hidden="true"></div>
       </div>
       <div
         class="relative z-10 bg-white/90 backdrop-blur-[10px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center"
@@ -870,47 +871,13 @@
 
               <!-- Countdown -->
               <div class="text-center mb-8">
-                <h3 class="text-2xl font-semibold mb-4 font-playfair">
-                  Hitung Mundur Acara
+                <h3 class="text-2xl font-semibold mb-2 font-playfair">
+                  Hari Acara
                 </h3>
-                <div class="flex justify-center gap-2 sm:gap-4 flex-nowrap">
-                  <div class="countdown-item text-white text-center">
-                    <div
-                      class="text-2xl sm:text-3xl font-bold"
-                      x-text="countdown.days"
-                    >
-                      00
-                    </div>
-                    <div class="text-xs sm:text-sm">Hari</div>
-                  </div>
-                  <div class="countdown-item text-white text-center">
-                    <div
-                      class="text-2xl sm:text-3xl font-bold"
-                      x-text="countdown.hours"
-                    >
-                      00
-                    </div>
-                    <div class="text-xs sm:text-sm">Jam</div>
-                  </div>
-                  <div class="countdown-item text-white text-center">
-                    <div
-                      class="text-2xl sm:text-3xl font-bold"
-                      x-text="countdown.minutes"
-                    >
-                      00
-                    </div>
-                    <div class="text-xs sm:text-sm">Menit</div>
-                  </div>
-                  <div class="countdown-item text-white text-center">
-                    <div
-                      class="text-2xl sm:text-3xl font-bold"
-                      x-text="countdown.seconds"
-                    >
-                      00
-                    </div>
-                    <div class="text-xs sm:text-sm">Detik</div>
-                  </div>
+                <div class="text-3xl sm:text-4xl font-bold text-secondary-dark" x-text="eventWeekday">
+                  Jumat
                 </div>
+                <div class="text-sm text-gray-600 mt-1">24 Oktober 2025</div>
               </div>
 
               <!-- Peta -->
@@ -1222,6 +1189,8 @@
           // Background slideshow state for opening modal
           modalBgIndex: 0,
           modalBgTimerId: null,
+          // Event day text
+          eventWeekday: '—',
           supabase: null,
           supabaseReady: false,
           baseDocumentTitle: document.title,
@@ -1294,9 +1263,8 @@
             this.initSupabase();
             this.loadComments();
 
-            // Start countdown
-            this.updateCountdown();
-            setInterval(() => this.updateCountdown(), 1000);
+            // Compute event weekday only
+            this.computeEventWeekday();
 
             // Handle smooth scrolling
             this.initSmoothScroll();
@@ -1442,26 +1410,15 @@
             this.isPlaying = !this.isPlaying;
           },
 
-          updateCountdown() {
-            const eventTime = new Date("2025-07-17T10:00:00+08:00").getTime();
-            const now = Date.now();
-            let diff = eventTime - now;
-
-            if (diff < 0) diff = 0;
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor(
-              (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            this.countdown = {
-              days: String(days).padStart(2, "0"),
-              hours: String(hours).padStart(2, "0"),
-              minutes: String(minutes).padStart(2, "0"),
-              seconds: String(seconds).padStart(2, "0"),
-            };
+          computeEventWeekday() {
+            // Event date: October 24, 2025 at 10:00 WITA (UTC+8)
+            const eventDate = new Date("2025-10-24T10:00:00+08:00");
+            try {
+              this.eventWeekday = eventDate.toLocaleDateString('id-ID', { weekday: 'long' });
+            } catch (_) {
+              const weekdays = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+              this.eventWeekday = weekdays[eventDate.getDay()] || 'Jumat';
+            }
           },
 
           submitComment() {
