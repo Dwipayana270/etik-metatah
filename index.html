@@ -603,7 +603,7 @@
         <h2 class="text-4xl font-mrsdelafield text-secondary-dark mb-1">
           Om Swastyastu
         </h2>
-        <p class="text-gray-600 mb-4">Yth. Bapak/Ibu/Saudara/i</p>
+        <p class="text-gray-600 mb-4" x-text="guestGreeting">Yth. Bapak/Ibu/Saudara/i</p>
 
         <div class="flex gap-3 justify-center">
           <button
@@ -651,7 +651,7 @@
             >
               Upacara Metatah
             </h1>
-            <p class="my-3 text-3xl text-gray-700">Yth. Bapak/Ibu/Saudara/i</p>
+            <p class="my-3 text-3xl text-gray-700" x-text="guestGreeting">Yth. Bapak/Ibu/Saudara/i</p>
             <p class="mt-2 text-sm text-gray-500 max-w-xl mx-auto">
               Atas Asung Kertha Wara Nugraha Ida Sang Hyang Widhi Wasa,
               perkenankan kami mengundang Bapak/Ibu/Saudara/i hadir memberikan
@@ -1202,6 +1202,9 @@
           currentImageIndex: 0,
           supabase: null,
           supabaseReady: false,
+          baseDocumentTitle: document.title,
+          guestName: "",
+          guestGreeting: "Yth. Bapak/Ibu/Saudara/i",
           countdown: {
             days: "00",
             hours: "00",
@@ -1275,6 +1278,9 @@
 
             // Handle smooth scrolling
             this.initSmoothScroll();
+
+            // Personalize content based on URL guest parameter
+            this.applyGuestPersonalization();
           },
 
           initSupabase() {
@@ -1532,6 +1538,84 @@
                 }
               });
             });
+          },
+
+          normalizeGuestName(rawValue) {
+            try {
+              const decoded = decodeURIComponent(String(rawValue || ""))
+                .replace(/\+/g, " ")
+                .replace(/[\-_]+/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+              if (!decoded) return "";
+              return decoded
+                .split(" ")
+                .map((part) =>
+                  part.length > 0
+                    ? part.charAt(0).toUpperCase() + part.slice(1)
+                    : part
+                )
+                .join(" ");
+            } catch (_) {
+              return "";
+            }
+          },
+
+          parseGuestFromUrl() {
+            let rawGuest = "";
+            try {
+              const url = new URL(window.location.href);
+              rawGuest =
+                url.searchParams.get("to") ||
+                url.searchParams.get("guest") ||
+                url.searchParams.get("nama") ||
+                "";
+
+              if (!rawGuest && window.location.hash) {
+                const hash = window.location.hash.replace(/^#/, "");
+                const params = new URLSearchParams(hash);
+                rawGuest =
+                  params.get("to") || params.get("guest") || params.get("nama") || "";
+              }
+
+              if (!rawGuest) {
+                const segments = window.location.pathname
+                  .split("/")
+                  .filter(Boolean);
+                // Support path like /guest/<name> or /g/<name>
+                const idx = Math.max(
+                  segments.lastIndexOf("guest"),
+                  segments.lastIndexOf("g")
+                );
+                if (idx >= 0 && segments[idx + 1]) {
+                  rawGuest = segments[idx + 1];
+                }
+              }
+            } catch (_) {
+              rawGuest = "";
+            }
+
+            return this.normalizeGuestName(rawGuest);
+          },
+
+          updateOgTitle(newTitle) {
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute("content", newTitle);
+          },
+
+          applyGuestPersonalization() {
+            const parsed = this.parseGuestFromUrl();
+            if (parsed) {
+              this.guestName = parsed;
+              this.guestGreeting = `Yth. ${parsed}`;
+              const personalizedTitle = `Undangan untuk ${parsed} — Undangan Metatah`;
+              document.title = personalizedTitle;
+              this.updateOgTitle(personalizedTitle);
+            } else {
+              this.guestName = "";
+              this.guestGreeting = this.guestGreetingDefault || "Yth. Bapak/Ibu/Saudara/i";
+              document.title = this.baseDocumentTitle || document.title;
+            }
           },
         };
       }
