@@ -728,7 +728,7 @@
           </div>
 
           <div
-            class="grid grid-cols-2 grid-rows-2 gap-4 lg:grid-cols-4 lg:grid-rows-1"
+            class="grid gid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 lg:grid-cols-4 lg:grid-rows-1"
           >
             <!-- Card -->
             <div class="relative overflow-hidden rounded-xl shadow-lg">
@@ -1214,7 +1214,7 @@
       function invitationApp() {
         return {
           showModal: true,
-          isPlaying: true,
+          isPlaying: false, // Changed from true to false
           showLightbox: false,
           currentImageIndex: 0,
           // Background slideshow state for opening modal
@@ -1428,6 +1428,13 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
             this.$nextTick(() => {
               if (window.AOS && AOS.refresh) AOS.refresh();
+              
+              // Start playing music when invitation is opened
+              const audioPlayer = this.$refs.audioPlayer;
+              if (audioPlayer) {
+                audioPlayer.play().catch(() => {});
+                this.isPlaying = true;
+              }
             });
           },
 
