@@ -1722,8 +1722,8 @@
       class="bg-white/20 backdrop-blur-sm h-24 mb-12 flex items-center justify-center text-center relative pt-8 pb-20"
     >
       <div class="container mx-auto px-6">
-        <p class="text-gray-600 text-sm">
-          Made with <span class="text-red-500">❤</span> by
+        <p class="text-gray-600 text-md">
+          Made with <span id="love-emoji" class="text-red-500">❤</span> by
           <a
             href="https://www.instagram.com/dwpyn"
             target="_blank"
@@ -1735,5 +1735,36 @@
         </p>
       </div>
     </footer>
+    <script>
+      // Collection of love emojis
+      const loveEmojis = [
+        "❤️",
+        "💕",
+        "💖",
+        "💗",
+        "💓",
+        "💞",
+        "💝",
+        "💘",
+        "💟",
+        "❣️",
+        "💌",
+      ];
+
+      // Get the emoji element
+      const loveEmojiElement = document.getElementById("love-emoji");
+
+      // Initialize current emoji index
+      let currentEmojiIndex = 0;
+
+      // Function to change the emoji
+      function changeEmoji() {
+        currentEmojiIndex = (currentEmojiIndex + 1) % loveEmojis.length;
+        loveEmojiElement.textContent = loveEmojis[currentEmojiIndex];
+      }
+
+      // Change emoji every 0.5 seconds
+      setInterval(changeEmoji, 300);
+    </script>
   </body>
 </html>
