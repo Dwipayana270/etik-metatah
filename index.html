@@ -63,6 +63,12 @@
       href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap"
+      rel="stylesheet"
+    />
 
     <script>
       tailwind.config = {
@@ -200,7 +206,8 @@
 
       /* Waving animation for parallax elements - FASTER */
       @keyframes wave {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0) rotate(0deg);
         }
         25% {
@@ -215,7 +222,8 @@
       }
 
       @keyframes wave-reverse {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0) rotate(0deg);
         }
         25% {
@@ -598,6 +606,12 @@
           padding: 20px;
         }
       }
+
+      .ysabeau-infant {
+        font-family: "Ysabeau Infant", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+      }
     </style>
   </head>
 
@@ -702,7 +716,7 @@
               Upacara Metatah
             </h1>
             <p
-              class="my-3 text-xl md:text-3xl text-gray-700"
+              class="my-3 text-xl md:text-3xl text-gray-700 ysabeau-infant"
               x-text="guestGreeting"
             >
               Yth. Bapak/Ibu/Saudara/i
@@ -768,7 +782,7 @@
                   class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white via-white/80 to-transparent flex items-end justify-center pb-2 sm:pb-6"
                 >
                   <p
-                    class="text-md sm:text-xl text-gray-800 tracking-wide text-center"
+                    class="text-2xl md:text-xl text-gray-800 tracking-wide text-center ysabeau-infant"
                   >
                     Luh Mas Tia Andriani
                   </p>
@@ -788,7 +802,7 @@
                   class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white via-white/80 to-transparent flex items-end justify-center pb-2 sm:pb-6"
                 >
                   <p
-                    class="text-md sm:text-xl text-gray-800 tracking-wide text-center"
+                    class="text-2xl md:text-xl text-gray-800 tracking-wide text-center ysabeau-infant"
                   >
                     Ni Kadek Mas Ita Andriantini
                   </p>
@@ -807,7 +821,7 @@
                   class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white via-white/80 to-transparent flex items-end justify-center pb-2 sm:pb-6"
                 >
                   <p
-                    class="text-md sm:text-xl text-gray-800 tracking-wide text-center"
+                    class="text-2xl md:text-xl text-gray-800 tracking-wide text-center ysabeau-infant"
                   >
                     Komang Mas Eti Andriantina
                   </p>
@@ -826,7 +840,7 @@
                   class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white via-white/80 to-transparent flex items-end justify-center pb-2 sm:pb-6"
                 >
                   <p
-                    class="text-md sm:text-xl text-gray-800 tracking-wide text-center"
+                    class="text-2xl md:text-xl text-gray-800 tracking-wide text-center ysabeau-infant"
                   >
                     Ketut Mas Tyo Teja Adriana
                   </p>
@@ -840,18 +854,18 @@
             <div
               class="bg-white/80 backdrop-blur-sm rounded-xl shadow p-4 sm:p-6 text-gray-700 text-center"
             >
-              <p class="text-sm sm:text-base font-medium">Putra Putri dari:</p>
+              <p class="text-sm sm:text-base">Putra Putri dari:</p>
               <div class="mt-3 space-y-3 sm:space-y-4 text-gray-600">
                 <div
                   class="flex flex-col md:flex-row justify-center items-center md:gap-8"
                 >
-                  <div class="text-lg sm:text-xl">I Nyoman Sumanasa</div>
+                  <div class="text-2xl ysabeau-infant">I Nyoman Sumanasa</div>
                   <div
-                    class="text-secondary-dark text-6xl sm:text-7xl md:text-8xl leading-none font-mrsdelafield"
+                    class="-mb-4 text-secondary-dark text-6xl sm:text-7xl md:text-8xl leading-none font-mrsdelafield"
                   >
                     &amp;
                   </div>
-                  <div class="text-lg sm:text-xl">Ketut Santi Purnami</div>
+                  <div class="text-2xl ysabeau-infant">Ketut Santi Purnami</div>
                 </div>
               </div>
             </div>
@@ -897,7 +911,7 @@
 
               <!-- Countdown -->
               <div class="text-center mb-8">
-                <h3 class="text-2xl font-semibold mb-4 font-playfair">
+                <h3 class="text-2xl font-semibold mb-4 ysabeau-infant">
                   Hitung Mundur Acara
                 </h3>
                 <div class="flex justify-center gap-2 sm:gap-4 flex-nowrap">
@@ -943,7 +957,7 @@
               <!-- Peta -->
               <div>
                 <h4
-                  class="text-lg font-semibold text-secondary-dark mb-3 font-playfair"
+                  class="text-lg font-semibold text-secondary-dark mb-3 ysabeau-infant"
                 >
                   Lokasi
                 </h4>
@@ -992,7 +1006,7 @@
             class="max-w-2xl mx-auto bg-white/70 backdrop-blur-[10px] rounded-xl shadow p-6"
             data-aos="fade-up"
           >
-            <h3 class="text-xl font-semibold mb-4 font-playfair">
+            <h3 class="text-xl font-semibold mb-4 ysabeau-infant">
               Kirimkan Ucapan & Doa Restu
             </h3>
             <form class="space-y-4" @submit.prevent="submitComment()">
@@ -1035,7 +1049,7 @@
 
           <!-- Comments Display -->
           <div class="max-w-2xl mx-auto mt-8" data-aos="fade-up">
-            <h3 class="text-xl font-semibold mb-4 font-playfair text-center">
+            <h3 class="text-xl font-semibold mb-4 ysabeau-infant text-center">
               Ucapan & Doa Restu
             </h3>
             <!-- Scroll container for comments (no nested scrolling) -->
@@ -1054,7 +1068,7 @@
                     <div class="text-left">
                       <div class="mb-2">
                         <h4
-                          class="font-semibold font-playfair text-secondary-dark"
+                          class="font-semibold ysabeau-infant text-secondary-dark"
                           x-text="comment.name"
                         ></h4>
                       </div>
