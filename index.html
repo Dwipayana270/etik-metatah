@@ -697,7 +697,7 @@
     >
       <!-- HERO -->
       <header
-        class="min-h-screen min-h-[100svh] flex items-center justify-center"
+        class="min-h-screen min-h-[100svh] flex items-center justify-center relative"
         style="min-height: 100vh; min-height: 100svh"
       >
         <div class="container mx-auto px-6 text-center">
@@ -749,6 +749,26 @@
               class="block w-full h-full object-cover rotate-180 filter grayscale"
               aria-hidden="true"
             />
+          </div>
+        </div>
+        <!-- Scroll indicator (CTA) -->
+        <div
+          x-show="!showModal && showScrollIndicator"
+          x-transition.opacity
+          class="pointer-events-none select-none absolute inset-x-0 bottom-6 flex flex-col items-center z-[15]"
+          aria-hidden="true"
+        >
+          <div class="flex flex-col items-center text-secondary-dark/70">
+            <div
+              class="w-7 h-11 border-2 border-secondary-dark/40 rounded-full relative"
+              role="img"
+              aria-label="Gulir ke bawah"
+            >
+              <div
+                class="w-1.5 h-1.5 bg-secondary-dark rounded-full absolute left-1/2 -translate-x-1/2 top-2 animate-bounce"
+              ></div>
+            </div>
+            <div class="mt-2 text-[11px] tracking-wide">Gulir ke bawah</div>
           </div>
         </div>
       </header>
@@ -1283,6 +1303,7 @@
           showModal: true,
           isPlaying: false, // Changed from true to false
           showLightbox: false,
+          showScrollIndicator: true,
           currentImageIndex: 0,
           // Background slideshow state for opening modal
           modalBgIndex: 0,
@@ -1368,6 +1389,9 @@
             // Handle smooth scrolling
             this.initSmoothScroll();
 
+            // Show scroll CTA then hide after slight user scroll
+            this.initScrollIndicator();
+
             // Personalize content based on URL guest parameter
             this.applyGuestPersonalization();
 
@@ -1375,6 +1399,27 @@
             if (this.showModal) {
               this.startModalSlideshow();
             }
+          },
+
+          initScrollIndicator() {
+            const onScroll = () => {
+              const scrolled =
+                window.scrollY ||
+                window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                0;
+              if (scrolled > 40 && this.showScrollIndicator) {
+                this.showScrollIndicator = false;
+                window.removeEventListener("scroll", onScroll);
+                window.removeEventListener("wheel", onScroll);
+                window.removeEventListener("touchmove", onScroll);
+              }
+            };
+            window.addEventListener("scroll", onScroll, { passive: true });
+            window.addEventListener("wheel", onScroll, { passive: true });
+            window.addEventListener("touchmove", onScroll, { passive: true });
+            // Hide immediately if page is already scrolled (deep link)
+            onScroll();
           },
 
           startModalSlideshow() {
