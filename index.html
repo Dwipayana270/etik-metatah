@@ -641,7 +641,7 @@
         <img
           :src="image"
           alt=""
-          class="absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500"
+          class="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-500"
           :class="galleryImages.indexOf(image) === modalBgIndex ? 'opacity-100' : 'opacity-0'"
           loading="lazy"
           decoding="async"
@@ -664,8 +664,8 @@
       style="display: none"
     >
       <div
-  class="bg-white/40 backdrop-blur-[5px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center absolute left-1/2 top-[65%] -translate-x-1/2 -translate-y-1/2"
->
+        class="bg-white/40 backdrop-blur-[5px] rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 text-center"
+      >
         <h2 class="text-4xl font-mrsdelafield text-secondary-dark mb-1">
           Om Swastyastu
         </h2>
