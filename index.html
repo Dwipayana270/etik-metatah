@@ -637,7 +637,7 @@
       style="display: none"
       aria-hidden="true"
     >
-      <template x-for="image in galleryImages" :key="'modalbg-'+image">
+      <template x-for="image in modalImages" :key="'modalbg-'+image">
         <img
           :src="image"
           alt=""
@@ -1329,6 +1329,18 @@
             "assets/gallery/22.jpg",
             "assets/gallery/23.jpg",
             "assets/gallery/24.jpg",
+          ],
+          modalImages: [
+            "assets/gallery/1.jpg",
+            "assets/gallery/2.jpg",
+            "assets/gallery/7.jpg",
+            "assets/gallery/10.jpg",
+            "assets/gallery/11.jpg",
+            "assets/gallery/15.jpg",
+            "assets/gallery/17.jpg",
+            "assets/gallery/18.jpg",
+            "assets/gallery/19.jpg",
+            "assets/gallery/20.jpg",
           ],
 
           init() {
